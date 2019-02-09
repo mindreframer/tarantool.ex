@@ -2,14 +2,17 @@ defmodule Tarantool.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :tarantool,
-     version: "0.0.3",
-     elixir: "~> 1.2",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     description: description(),
-     package: package(),
-     deps: deps()]
+    [
+      app: :tarantool,
+      version: "0.0.3",
+      elixir: "~> 1.2",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      description: description(),
+      package: package(),
+      aliases: aliases(),
+      deps: deps()
+    ]
   end
 
   # Configuration for the OTP application
@@ -39,11 +42,18 @@ defmodule Tarantool.Mixfile do
   end
 
   defp package do
-    [# These are the default files included in the package
-     files: ["lib", "priv", "mix.exs", "README*", "readme*", "LICENSE*", "license*"],
-     maintainers: ["Alexey Poimtsev", "Alexander Malaev"],
-     licenses: ["MIT"],
-     links: %{"GitHub" => "https://github.com/progress-engine/tarantool.ex"}]
+    # These are the default files included in the package
+    [
+      files: ["lib", "priv", "mix.exs", "README*", "readme*", "LICENSE*", "license*"],
+      maintainers: ["Alexey Poimtsev", "Alexander Malaev"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/progress-engine/tarantool.ex"}
+    ]
   end
 
+  defp aliases do
+    [
+      test: ["test", "tarantool.cleanup"]
+    ]
+  end
 end
